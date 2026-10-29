@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, tel } from '../data/site';
+const c = site.contacto;
+---
+
+<Base titulo="Página no encontrada">
+  <section class="banda-oscura">
+    <div class="contenedor cabeza-pagina grid items-end gap-10 lg:grid-cols-[7fr_5fr]">
+      <p class="error-cifra" aria-hidden="true">404</p>
+      <div>
+        <p class="antetitulo">Página no encontrada</p>
+        <h1 class="titulo-seccion">Esta porción se la ha comido alguien</h1>
+        <p class="titular-texto mt-6">Puede que el enlace esté mal o que la página se haya movido.</p>
+        <div class="mt-9 flex flex-wrap gap-4">
+          <a class="btn" href="/">Volver al inicio</a>
+          {c.telefono && <a class="btn-sec" href={tel(c.telefono)}>{c.telefono}</a>}
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="mantel" aria-hidden="true"></div>
+</Base>

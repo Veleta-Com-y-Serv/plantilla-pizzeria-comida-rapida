@@ -1,0 +1,34 @@
+---
+// Opiniones: banda amarilla a todo el ancho. La primera opinión va enorme, en mayúsculas condensadas y con una
+// comilla roja gigante; las demás, en dos columnas con filete negro. `testimonios` [{texto, autor, nota}]:
+// `nota` opcional (de dónde viene, p. ej. «Google»). Sin estrellas ni notas. Sin opiniones no se pinta.
+import { seccion } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+---
+
+{
+  s && s.testimonios.length > 0 && (
+    <section id={Astro.props.id} class="seccion opiniones">
+      <div class="contenedor">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        <ul class="opiniones-lista">
+          {s.testimonios.map((t, i) => (
+            <li class:list={['opinion', { 'opinion--grande': i === 0 }]}>
+              <figure>
+                <blockquote class="opinion-texto">{t.texto}</blockquote>
+                {(t.autor || t.nota) && (
+                  <figcaption class="opinion-autor">
+                    {t.autor && <span>{t.autor}</span>}
+                    {t.nota && <span class="opinion-nota">{t.nota}</span>}
+                  </figcaption>
+                )}
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,57 @@
+---
+// La casa / la masa: foto vertical a sangre en la mitad izquierda (hasta el borde de la ventana) y, a la derecha,
+// antetítulo, título, `declaracion` (frase corta en rojo, mayúsculas), `texto` en párrafos (línea en blanco
+// entre párrafos) e `items` numerados con filete negro. Debajo, `galeria`: franja de fotos cuadradas de borde
+// a borde, sin márgenes. Sin foto, el texto ocupa el ancho.
+import { seccion, parrafos, destino } from '../../data/site';
+import { altSeccion, altGaleria } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const fotos = s ? s.galeria.slice(0, 6) : [];
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="sobre">
+      <div class:list={[{ partida: s.imagen }]}>
+        {s.imagen && (
+          <div class="mitad-foto">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1000} alto={1300} />
+          </div>
+        )}
+        <div class:list={['mitad', s.imagen ? 'mitad--der' : 'contenedor']}>
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+          {s.declaracion && <p class="declaracion">{s.declaracion}</p>}
+          {parrafos(s.texto).length > 0 && (
+            <div class="mt-6 max-w-2xl space-y-4 text-[1.06rem] leading-relaxed opacity-90">
+              {parrafos(s.texto).map((p) => <p>{p}</p>)}
+            </div>
+          )}
+          {s.items.length > 0 && (
+            <ol class:list={['valores', { 'lg:grid-cols-3': !s.imagen }]}>
+              {s.items.map((it, i) => (
+                <li>
+                  <span class="valores-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 class="valores-titulo">{it.titulo}</h3>
+                  {it.texto && <p class="valores-texto">{it.texto}</p>}
+                </li>
+              ))}
+            </ol>
+          )}
+          {s.cta?.url && <a class="btn mt-10" href={s.cta.url} {...destino(s.cta.url)}>{s.cta.texto}</a>}
+        </div>
+      </div>
+      {fotos.length > 0 && (
+        <ul class="franja" style={`--n:${Math.min(fotos.length, 6)}`}>
+          {fotos.map((f, i) => (
+            <li>
+              <Imagen src={f} alt={altGaleria(i)} ancho={700} alto={700} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  )
+}

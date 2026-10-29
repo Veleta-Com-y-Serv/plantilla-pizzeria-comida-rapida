@@ -1,0 +1,21 @@
+---
+// Titular de sección: antetítulo con raya, título condensado en mayúsculas muy grande y texto.
+// `doble` (por defecto): en escritorio el texto va a la derecha del título, a lo ancho; `apilado`: todo en columna.
+// Adaptado de AstroWind (Headline.astro), © onWidget, MIT.
+interface Props { titulo?: string; antetitulo?: string; texto?: string; forma?: 'doble' | 'apilado'; class?: string; nivel?: 1 | 2 }
+const { titulo, antetitulo, texto, forma = 'doble', class: clase = '', nivel = 2 } = Astro.props;
+const H = nivel === 1 ? 'h1' : 'h2';
+---
+
+{
+  (titulo || antetitulo || texto) && (
+    <div class:list={['titular', { 'titular--doble': forma === 'doble' && texto }, clase]}>
+      <div>
+        {antetitulo && <p class="antetitulo">{antetitulo}</p>}
+        {titulo && <H class="titulo-seccion">{titulo}</H>}
+      </div>
+      {texto && <p class:list={['titular-texto', { 'mt-5': forma === 'apilado' }]}>{texto}</p>}
+      <slot />
+    </div>
+  )
+}

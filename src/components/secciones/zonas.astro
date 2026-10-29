@@ -1,0 +1,72 @@
+---
+// Horario y zonas de reparto, en dos mitades a sangre: a la izquierda, sobre negro, el título, el `texto` y el
+// `horario` [{dia, horas}] en una tabla grande (sin lista, `contacto.horario`); a la derecha, sobre el mantel de
+// cuadros, las zonas (`items` [{titulo, texto}]: barrio y condiciones del reparto) en placas blancas, la
+// dirección y los botones «Cómo llegar» y teléfono. Sin zonas, la dirección va en una placa sola.
+import { seccion, site, mapa, tel, destino } from '../../data/site';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const derecha = !!s && (s.items.length > 0 || !!c.direccion || !!c.telefono);
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class:list={[{ partida: derecha }, { "banda-oscura": !derecha }]}>
+      <div class:list={["mitad banda-oscura", derecha ? "mitad--izq" : "contenedor"]}>
+        {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+        {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+        {s.texto && <p class="titular-texto mt-6">{s.texto}</p>}
+        {s.horario.length > 0 ? (
+          <table class="horario mt-10">
+            <caption class="sr-only">Horario</caption>
+            <tbody>
+              {s.horario.map((h) => (
+                <tr>
+                  <th scope="row">{h.dia}</th>
+                  <td>{h.horas}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          c.horario && <p class="horario-suelto mt-10">{c.horario}</p>
+        )}
+        {s.cta?.url && <a class="btn mt-10" href={s.cta.url} {...destino(s.cta.url)}>{s.cta.texto}</a>}
+      </div>
+      {derecha && (
+      <div class="mitad mitad--der cuadros">
+        {s.items.length > 0 && (
+          <ul class="zonas-lista">
+            {s.items.map((z) => (
+              <li class="zona">
+                <p class="zona-nombre">{z.titulo}</p>
+                {z.texto && <p class="zona-texto">{z.texto}</p>}
+              </li>
+            ))}
+          </ul>
+        )}
+        {(c.direccion || c.telefono) && (
+          <div class:list={['placa', { 'mt-8': s.items.length > 0 }]}>
+            {c.direccion && (
+              <p class="direccion mt-0">
+                <Icono nombre="mapa" class="mt-0.5 shrink-0 text-primario" />
+                <span>{c.direccion}</span>
+              </p>
+            )}
+            <div class="mt-5 flex flex-wrap gap-3">
+              {c.direccion && (
+                <a class="btn" href={mapa(c.direccion)} rel="noopener" target="_blank">
+                  Cómo llegar
+                </a>
+              )}
+              {c.telefono && <a class="btn-sec" href={tel(c.telefono)}>{c.telefono}</a>}
+            </div>
+          </div>
+        )}
+      </div>
+      )}
+    </section>
+  )
+}

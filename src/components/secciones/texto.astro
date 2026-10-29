@@ -1,0 +1,48 @@
+---
+// Apartado de texto genérico (site.yaml: `tipo: texto`): banda a todo el ancho en amarillo muy claro. Con
+// `imagen`, dos mitades a sangre (texto a la izquierda, foto hasta el borde derecho); sin ella, el texto a lo
+// ancho con el título a la izquierda. Antetítulo, título, párrafos, `items` con filetes y botón opcional.
+import { seccion, parrafos, destino } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="apartado">
+      <div class:list={[s.imagen ? 'partida' : 'contenedor seccion']}>
+        <div class:list={[s.imagen ? 'mitad mitad--izq' : 'grid gap-8 lg:grid-cols-[5fr_7fr] lg:gap-20']}>
+          <div>
+            {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+            {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+          </div>
+          <div class:list={{ 'lg:pt-10': !s.imagen }}>
+            {parrafos(s.texto).length > 0 && (
+              <div class="mt-6 max-w-2xl space-y-4 leading-relaxed opacity-90">
+                {parrafos(s.texto).map((p) => <p>{p}</p>)}
+              </div>
+            )}
+            {s.items.length > 0 && (
+              <ul class="lista-filetes">
+                {s.items.map((it) => (
+                  <li>
+                    <p class="font-display text-2xl">{it.titulo}</p>
+                    {it.texto && <p class="mt-1 opacity-80">{it.texto}</p>}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {s.cta?.url && <a class="btn mt-8" href={s.cta.url} {...destino(s.cta.url)}>{s.cta.texto}</a>}
+          </div>
+        </div>
+        {s.imagen && (
+          <div class="mitad-foto">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={900} />
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

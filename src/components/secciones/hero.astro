@@ -1,0 +1,58 @@
+---
+// Portada partida a sangre: a la izquierda, sobre negro, antetítulo, título gigante en mayúsculas condensadas,
+// texto y dos botones; a la derecha, la foto del producto hasta el borde de la ventana con un corte en diagonal
+// (en móvil, la foto arriba). `etiqueta`: pegatina amarilla en estrella sobre la foto. `items`: detalles cortos
+// en una cinta roja inclinada bajo la portada. Sin `cta`, el primer botón llama; sin `cta_secundario`, lleva al mapa.
+import { seccion, site, tel, mapa, destino } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const c = site.contacto;
+const principal = s?.cta?.url ? s.cta : c.telefono ? { texto: c.telefono, url: tel(c.telefono) } : null;
+const secundario = s?.cta_secundario?.url ? s.cta_secundario : c.direccion ? { texto: 'Cómo llegar', url: mapa(c.direccion) } : null;
+const etiqueta = typeof s?.etiqueta === 'string' ? s.etiqueta.trim() : '';
+---
+
+{
+  s && (
+    <section id={id} class:list={["portada", { "portada--sin-foto": !s.imagen }]}>
+      {s.imagen && (
+        <div class="portada-foto">
+          <Imagen src={s.imagen} alt={altHero()} ancho={1400} alto={1400} prioridad={primera} />
+          {etiqueta && <p class="pegatina">{etiqueta}</p>}
+        </div>
+      )}
+      <div class="portada-contenido">
+        {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+        <h1 class="portada-titulo">{s.titulo || site.nombre}</h1>
+        {s.texto && <p class="portada-texto">{s.texto}</p>}
+        {(principal || secundario) && (
+          <div class="portada-botones">
+            {principal && (
+              <a class="btn" href={principal.url} {...destino(principal.url)}>
+                {principal.texto}
+              </a>
+            )}
+            {secundario && (
+              <a class="btn-sec" href={secundario.url} {...destino(secundario.url)}>
+                {secundario.texto}
+              </a>
+            )}
+          </div>
+        )}
+        {!s.imagen && etiqueta && <p class="pegatina pegatina--suelta">{etiqueta}</p>}
+      </div>
+      {s.items.length > 0 && (
+        <div class="cinta">
+          <ul>
+            {s.items.map((it) => (
+              <li>{it.titulo || it.texto}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+  )
+}

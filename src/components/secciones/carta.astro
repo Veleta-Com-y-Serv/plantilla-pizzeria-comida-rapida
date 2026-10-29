@@ -1,0 +1,78 @@
+---
+// Carta por categorías: cada `categoria` de `platos` (en el orden en que aparece) es una banda a todo el ancho,
+// alternando claro y negro, con su título y una raya roja. Fichas en rejilla de 1 a 4 columnas: con `imagen`,
+// foto 4:3 y precio en etiqueta roja sobre la foto; sin foto, filete rojo y precio a la derecha. `destacado: true`
+// pone la marca amarilla (texto en `marca_destacado`). Sin precio no hay etiqueta. Con dos categorías o más,
+// índice de enlaces a cada una. `cta` opcional al final.
+import { seccion, agrupar, ancla, destino } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const grupos = s ? agrupar(s.platos, (p) => p.categoria) : [];
+const marca = (s?.marca_destacado as string | undefined)?.trim() || 'La favorita';
+const idGrupo = (g: string, i: number) => `${Astro.props.id}-${g ? ancla(g) : i + 1}`;
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="carta">
+      <div class="contenedor">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto}>
+          {grupos.length > 1 && grupos.every((g) => g.grupo) && (
+            <nav class="carta-indice" aria-label="Partes de la carta">
+              {grupos.map((g, i) => <a href={`#${idGrupo(g.grupo, i)}`}>{g.grupo}</a>)}
+            </nav>
+          )}
+        </Titular>
+      </div>
+      {grupos.map((g, i) => (
+        <section class="carta-grupo" id={idGrupo(g.grupo, i)} aria-label={g.grupo || undefined}>
+          <div class="contenedor">
+            {g.grupo && <h3 class="carta-categoria">{g.grupo}</h3>}
+            <ul class="platos">
+              {g.items.map((p) =>
+                p.imagen ? (
+                  <li class="plato">
+                    <div class="plato-foto">
+                      <Imagen src={p.imagen} alt={altFicha(p)} ancho={800} alto={600} />
+                      {p.precio && <p class="plato-precio">{p.precio}</p>}
+                    </div>
+                    {p.destacado && (
+                      <p class="plato-marca">
+                        <Icono nombre="estrella" tam={12} class="fill-current" /> {marca}
+                      </p>
+                    )}
+                    <h4 class="plato-nombre font-display">{p.nombre}</h4>
+                    {p.texto && <p class="plato-texto">{p.texto}</p>}
+                  </li>
+                ) : (
+                  <li class="plato plato--sin-foto">
+                    <div class="plato-cabeza">
+                      <h4 class="plato-nombre font-display">{p.nombre}</h4>
+                      {p.precio && <p class="plato-precio">{p.precio}</p>}
+                    </div>
+                    {p.texto && <p class="plato-texto">{p.texto}</p>}
+                    {p.destacado && (
+                      <p class="plato-marca">
+                        <Icono nombre="estrella" tam={12} class="fill-current" /> {marca}
+                      </p>
+                    )}
+                  </li>
+                ),
+              )}
+            </ul>
+          </div>
+        </section>
+      ))}
+      {s.cta?.url && (
+        <div class="contenedor pb-16 text-center">
+          <a class="btn" href={s.cta.url} {...destino(s.cta.url)}>{s.cta.texto}</a>
+        </div>
+      )}
+      {grupos.length === 0 && <div class="pb-8" />}
+    </section>
+  )
+}

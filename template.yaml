@@ -1,0 +1,93 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: pizzeria-comida-rapida
+nombre: Pizzería y comida para llevar
+descripcion: "Web a todo color para pizzerías, hamburgueserías y comida para llevar: carta con fotos, pedidos y reparto."
+sectores:
+  - { id: pizzeria, nombre: Pizzería }
+  - { id: hamburgueseria, nombre: Hamburguesería }
+  - { id: comida-rapida, nombre: Comida rápida }
+  - { id: food-truck, nombre: Food truck }
+  - { id: kebab, nombre: Kebab }
+  - { id: comida-llevar, nombre: Comida para llevar }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: carta, nombre: Carta }
+  - { id: pedidos, nombre: Pide ahora }
+  - { id: ofertas, nombre: Ofertas }
+  - { id: sobre, nombre: La casa }
+  - { id: zonas, nombre: Horario y reparto }
+  - { id: opiniones, nombre: Opiniones }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: contacto, nombre: Contacto }
+estilo: vivo
+plan_minimo: gratis
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-pizzeria-comida-rapida.noexpertise.com
+activa: true
+orden: 230
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu local"
+    pregunta: "¿Cómo se llama tu pizzería o tu local y qué preparáis?"
+    ayuda: "Por ejemplo: pizza al horno de leña, hamburguesas, kebab… y si es para llevar, a domicilio o para comer allí."
+    tipo: texto
+    campos: [nombre, eslogan, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto, secciones.hero.etiqueta, seo.titulo, seo.descripcion]
+  - id: contacto
+    titulo: "Cómo te piden"
+    pregunta: "¿Dónde estáis y cómo os pueden llamar o escribir para pedir?"
+    ayuda: "Solo lo que quieras que vean tus clientes. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.instagram, redes.facebook]
+  - id: carta
+    titulo: "Tu carta"
+    pregunta: "Cuéntame lo que vendes: un plato por línea, con el precio si quieres."
+    ayuda: "Puedes poner delante la parte de la carta (Pizzas, Hamburguesas, Para picar, Postres). Si lo prefieres, añádelos luego en Contenido."
+    tipo: lista
+    campos: [secciones.carta.platos]
+  - id: ofertas
+    titulo: "Tus ofertas"
+    pregunta: "¿Tenéis ofertas o promociones? Cuéntame cada una, qué incluye, el precio y cuándo vale."
+    ayuda: "Por ejemplo: menú de mediodía, 2×1 los martes o un pack familiar. Si no tenéis, salta este paso."
+    tipo: lista
+    campos: [secciones.ofertas.ofertas]
+  - id: sobre
+    titulo: "Vuestra casa"
+    pregunta: "¿Qué os hace distintos? La masa, el horno, el producto, quién está detrás…"
+    tipo: texto
+    campos: [secciones.sobre.titulo, secciones.sobre.declaracion, secciones.sobre.texto, secciones.sobre.items]
+  - id: horario
+    titulo: "Horario"
+    pregunta: "¿Qué días y a qué horas abrís y repartís?"
+    ayuda: "Por ejemplo: de lunes a jueves, de 13 a 16 h y de 20 a 24 h."
+    tipo: lista
+    campos: [secciones.zonas.horario]
+  - id: zonas
+    titulo: "Zonas de reparto"
+    pregunta: "¿A qué barrios o pueblos lleváis los pedidos? Uno por línea, con lo que cuesta el reparto si quieres."
+    ayuda: "Si no repartís a domicilio, salta este paso."
+    tipo: lista
+    campos: [secciones.zonas.items]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué os preguntan más a menudo? Escribe cada pregunta y lo que respondéis."
+    ayuda: "Por ejemplo: si tenéis sin gluten, cuánto tarda un pedido o si se paga con tarjeta."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada (vuestra mejor pizza o plato) y, si quieres, alguna del horno y del local."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.sobre.imagen, secciones.sobre.galeria]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

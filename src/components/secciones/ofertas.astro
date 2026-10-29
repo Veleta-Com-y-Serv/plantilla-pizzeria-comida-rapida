@@ -1,0 +1,38 @@
+---
+// Ofertas: banda negra con las promociones como tiques de comanda (borde dentado arriba y abajo, algo torcidos
+// en escritorio). `ofertas` [{titulo, texto, precio, validez}]: `validez` arriba en letra de máquina, `precio`
+// (cadena: «11,90 €», «-50 %») abajo en rojo y muy grande. Sin precio ni validez, no salen. Sin ofertas ni
+// texto, la sección no se pinta. `cta` opcional.
+import { seccion, destino } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const ofertas = s?.ofertas ?? [];
+---
+
+{
+  s && (ofertas.length > 0 || s.texto) && (
+    <section id={Astro.props.id} class="seccion banda-oscura">
+      <div class="contenedor">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        {ofertas.length > 0 && (
+          <ul class="tiques">
+            {ofertas.map((o) => (
+              <li class="tique">
+                {o.validez && <p class="tique-validez">{o.validez}</p>}
+                <h3 class="tique-titulo">{o.titulo}</h3>
+                {o.texto && <p class="tique-texto">{o.texto}</p>}
+                {o.precio && <p class="tique-precio">{o.precio}</p>}
+              </li>
+            ))}
+          </ul>
+        )}
+        {s.cta?.url && (
+          <p class="mt-14">
+            <a class="btn" href={s.cta.url} {...destino(s.cta.url)}>{s.cta.texto}</a>
+          </p>
+        )}
+      </div>
+    </section>
+  )
+}

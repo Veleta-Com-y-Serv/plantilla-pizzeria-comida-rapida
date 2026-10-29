@@ -1,0 +1,60 @@
+---
+// Contacto en dos mitades a sangre: a la izquierda, sobre rojo, el titular y las vías (teléfono, WhatsApp, email
+// y dirección, lo que haya en site.yaml → contacto) con iconos en círculo blanco; a la derecha, sobre claro,
+// el formulario (abre el correo, mailto).
+import { seccion, site, tel, whatsapp, mapa } from '../../data/site';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="partida">
+      <div class="mitad mitad--izq banda-roja">
+        {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+        {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+        {s.texto && <p class="titular-texto mt-6">{s.texto}</p>}
+        <ul class="vias mt-10">
+          {c.telefono && (
+            <li>
+              <a href={tel(c.telefono)}>
+                <span class="vias-icono" aria-hidden="true"><Icono nombre="telefono" /></span>
+                <span><span class="vias-etiqueta">Teléfono</span><span class="vias-dato">{c.telefono}</span></span>
+              </a>
+            </li>
+          )}
+          {c.whatsapp && (
+            <li>
+              <a href={whatsapp(c.whatsapp, `Hola, os escribo desde la web de ${site.nombre}`)} rel="noopener" target="_blank">
+                <span class="vias-icono" aria-hidden="true"><Icono nombre="whatsapp" /></span>
+                <span><span class="vias-etiqueta">WhatsApp</span><span class="vias-dato">{c.whatsapp}</span></span>
+              </a>
+            </li>
+          )}
+          {c.email && (
+            <li>
+              <a href={`mailto:${c.email}`}>
+                <span class="vias-icono" aria-hidden="true"><Icono nombre="correo" /></span>
+                <span class="min-w-0"><span class="vias-etiqueta">Email</span><span class="vias-dato vias-dato--min">{c.email}</span></span>
+              </a>
+            </li>
+          )}
+          {c.direccion && (
+            <li>
+              <a href={mapa(c.direccion)} rel="noopener" target="_blank">
+                <span class="vias-icono" aria-hidden="true"><Icono nombre="mapa" /></span>
+                <span class="min-w-0"><span class="vias-etiqueta">Dirección</span><span class="vias-dato vias-dato--min">{c.direccion}</span></span>
+              </a>
+            </li>
+          )}
+        </ul>
+      </div>
+      <div class="mitad mitad--der contacto-form">
+        <FormularioContacto prefijo={`c-${Astro.props.id}`} boton="Enviar" />
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,32 @@
+---
+// Preguntas frecuentes: a la izquierda el titular (fijo al bajar en escritorio), a la derecha un acordeón nativo
+// <details> con filetes negros gruesos, la pregunta en mayúsculas condensadas y un «+» en un cuadrado rojo.
+// Sin JavaScript. Campos: `preguntas[]` (pregunta, respuesta). Sin preguntas no se pinta.
+// También sirve de diseño para apartados nuevos (`tipo: preguntas`).
+import { seccion } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const preguntas = s ? s.preguntas.filter((p) => p && p.pregunta) : [];
+---
+
+{
+  s && preguntas.length > 0 && (
+    <section id={Astro.props.id} class="seccion preguntas">
+      <div class="contenedor faq-rejilla">
+        <Titular forma="apilado" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        <div class="faq-lista">
+          {preguntas.map((p) => (
+            <details class="faq">
+              <summary>
+                <span class="faq-pregunta">{p.pregunta}</span>
+                <span class="faq-signo" aria-hidden="true">+</span>
+              </summary>
+              {p.respuesta && <p class="faq-respuesta">{p.respuesta}</p>}
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,160 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Listas siempre planas (nunca una lista dentro de un elemento de lista). Precios siempre entre comillas.
+nombre: La Pala
+eslogan: Pizza de horno de leña y hamburguesas para llevar en el centro de Alicante.
+sector: pizzeria
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre en texto.
+colores:
+  primario: "#d62b1f"
+  acento: "#ffc93c"
+  fondo: "#fffdf8"
+  texto: "#161210"
+contacto:
+  telefono: "965 14 27 38"
+  email: pedidos@lapalapizza.es
+  direccion: Calle de San Fernando 41, 03001 Alicante (Alicante)
+  horario: "De lunes a jueves, de 13:00 a 16:00 y de 20:00 a 24:00. Viernes y sábado, de 13:00 a 16:00 y de 20:00 a 1:00. Domingo, de 20:00 a 24:00."
+  whatsapp: "+34 644 18 27 38"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Carta, url: "/#carta" }
+  - { texto: Pedir, url: "/#pedidos" }
+  - { texto: Ofertas, url: "/#ofertas" }
+  - { texto: La masa, url: "/#sobre" }
+  - { texto: Reparto, url: "/#zonas" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Pide ahora, url: "/#pedidos" }
+seo:
+  titulo: La Pala · Pizzería para llevar y a domicilio en Alicante
+  descripcion: "Pizza napolitana de masa madre en horno de leña y hamburguesas smash. Recoge en la calle San Fernando o pide a domicilio por el centro de Alicante."
+  tipo: Restaurant
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: "Calle San Fernando, 41 · Alicante"
+    titulo: Masa lenta, horno rápido
+    texto: "Pizzas napolitanas de masa madre con 48 horas de reposo, hamburguesas smash y cosas para picar. Recoge en el local o te lo llevamos a casa."
+    imagen: /fotos/hero.jpg
+    etiqueta: Recién salida del horno
+    cta: { texto: Pide ahora, url: "/#pedidos" }
+    cta_secundario: { texto: Ver la carta, url: "/#carta" }
+    items:
+      - { titulo: Masa de 48 horas }
+      - { titulo: Horno de leña }
+      - { titulo: Para llevar y a domicilio }
+      - { titulo: Abierto hasta medianoche }
+
+  carta:
+    activa: true
+    antetitulo: La carta
+    titulo: Recién hecho, para comer aquí o en casa
+    texto: "Todas las pizzas se pueden pedir sin gluten (masa aparte) y en tamaño mediano o familiar. Pregúntanos por las de temporada."
+    marca_destacado: La favorita
+    platos:
+      - { nombre: Margarita, texto: "Tomate San Marzano, fior di latte, albahaca fresca y aceite de oliva.", precio: "9,50 €", categoria: Pizzas al horno de leña, imagen: /fotos/margarita.jpg }
+      - { nombre: Diavola, texto: "Salami picante, tomate, mozzarella y un hilo de aceite de guindilla.", precio: "11,50 €", categoria: Pizzas al horno de leña, imagen: /fotos/diavola.jpg }
+      - { nombre: La Pala, texto: "Gamba roja, ajo tierno, mozzarella y ralladura de limón.", precio: "16,50 €", categoria: Pizzas al horno de leña, destacado: true, imagen: /fotos/la-pala.jpg }
+      - { nombre: Cuatro quesos, texto: "Mozzarella, gorgonzola, parmesano y queso de cabra.", precio: "12,00 €", categoria: Pizzas al horno de leña, imagen: /fotos/cuatro-quesos.jpg }
+      - { nombre: Huerta, texto: "Alcachofa, pimiento asado, berenjena y cebolla morada.", precio: "12,50 €", categoria: Pizzas al horno de leña }
+      - { nombre: Barbacoa, texto: "Pollo, bacon, cebolla caramelizada y salsa barbacoa de la casa.", precio: "12,50 €", categoria: Pizzas al horno de leña }
+      - { nombre: Calzone, texto: "Cerrada, con jamón cocido, ricotta, champiñón y mozzarella.", precio: "12,00 €", categoria: Pizzas al horno de leña }
+      - { nombre: Smash doble, texto: "Dos carnes aplastadas en la plancha, doble cheddar, cebolla y salsa de la casa.", precio: "12,50 €", categoria: Hamburguesas, destacado: true, imagen: /fotos/smash.jpg }
+      - { nombre: La clásica, texto: "Ternera de 180 g, cheddar, lechuga, tomate y pepinillo en pan brioche.", precio: "10,50 €", categoria: Hamburguesas }
+      - { nombre: Veggie, texto: "De garbanzo y remolacha, con guacamole y cebolla encurtida.", precio: "10,00 €", categoria: Hamburguesas }
+      - { nombre: Patatas de la casa, texto: "Con piel, pimentón de la Vera y alioli.", precio: "5,50 €", categoria: Para picar, imagen: /fotos/patatas.jpg }
+      - { nombre: Burrata con tomate, texto: "Tomate de temporada, pesto y pan de pizza recién horneado.", precio: "10,50 €", categoria: Para picar }
+      - { nombre: Pan de ajo y romero, texto: "Masa de pizza al horno con mantequilla de ajo.", precio: "4,00 €", categoria: Para picar }
+      - { nombre: Tiramisú casero, texto: "Con mascarpone, café de cafetera y cacao.", precio: "6,00 €", categoria: Postres, imagen: /fotos/tiramisu.jpg }
+      - { nombre: Pizza de chocolate, texto: "Para compartir, con crema de cacao y avellana tostada.", precio: "8,50 €", categoria: Postres }
+
+  pedidos:
+    activa: true
+    antetitulo: Pide ahora
+    titulo: ¿Hambre? Elige cómo
+    texto: "Llámanos y pasa a recogerla en 15 minutos, escríbenos por WhatsApp o pídela en tu aplicación de reparto."
+    items:
+      - { titulo: Llama y recoge, texto: "Te la tenemos lista en unos 15 minutos.", icono: telefono, url: "tel:+34965142738" }
+      - { titulo: Pide por WhatsApp, texto: "Mándanos el pedido y la dirección de entrega.", icono: whatsapp, url: "https://wa.me/34644182738?text=Hola%2C%20quiero%20hacer%20un%20pedido" }
+      - { titulo: En tu aplicación de reparto, texto: "También estamos en las aplicaciones de reparto de Alicante.", icono: moto, url: "https://pedidos.example.com/la-pala" }
+    nota: "Pedido mínimo a domicilio 15 €. Reparto gratis a partir de 25 €."
+
+  ofertas:
+    activa: true
+    antetitulo: Ofertas
+    titulo: Para que pidas otra vez
+    texto: "No se acumulan con otras promociones. Válidas en el local, para llevar y a domicilio."
+    ofertas:
+      - { titulo: Martes de pizza, texto: "La segunda pizza mediana a mitad de precio.", precio: "-50 %", validez: Todos los martes }
+      - { titulo: Menú de mediodía, texto: "Pizza individual o hamburguesa, bebida y postre.", precio: "11,90 €", validez: "De lunes a viernes, de 13:00 a 16:00" }
+      - { titulo: Pack familiar, texto: "Dos pizzas familiares, patatas de la casa y bebida de litro y medio.", precio: "29,90 €", validez: Todos los días }
+
+  sobre:
+    activa: true
+    antetitulo: La masa
+    titulo: 48 horas de reposo y 90 segundos de horno
+    declaracion: "Harina italiana, agua, sal, masa madre y tiempo. Nada más."
+    texto: |
+      Abrimos La Pala en 2019 en la calle San Fernando, a dos pasos de la Explanada, con un horno de leña traído de Nápoles y una idea fija: hacer la pizza que nos gusta comer.
+
+      La masa reposa dos días en cámara antes de estirarla a mano. Sale ligera, con el borde hinchado y tostado. El tomate, la verdura y el queso de cabra los compramos en la huerta y en los mercados de la provincia.
+    imagen: /fotos/sobre.jpg
+    items:
+      - { titulo: Masa madre, texto: "Fermentación lenta de 48 horas: más ligera y fácil de digerir." }
+      - { titulo: Horno de leña, texto: "A más de 400 grados: la pizza sale en menos de dos minutos." }
+      - { titulo: Producto de aquí, texto: "Tomate de la huerta de Mutxamel y verdura del Mercado Central." }
+    galeria:
+      - /fotos/masa.jpg
+      - /fotos/ingredientes.jpg
+      - /fotos/caja.jpg
+      - /fotos/local.jpg
+
+  zonas:
+    activa: true
+    antetitulo: Horario y reparto
+    titulo: Te la llevamos caliente
+    texto: "Repartimos con nuestras motos en unos 30 o 40 minutos. Si tu calle no está en la lista, pregúntanos."
+    horario:
+      - { dia: De lunes a jueves, horas: "13:00 – 16:00 y 20:00 – 24:00" }
+      - { dia: Viernes y sábado, horas: "13:00 – 16:00 y 20:00 – 1:00" }
+      - { dia: Domingo, horas: "20:00 – 24:00" }
+    items:
+      - { titulo: Centro y Casco Antiguo, texto: "Reparto gratis desde 25 €" }
+      - { titulo: Benalúa, texto: "Reparto gratis desde 25 €" }
+      - { titulo: Ensanche Diputación, texto: "Reparto gratis desde 25 €" }
+      - { titulo: Mercado Central, texto: "Reparto gratis desde 25 €" }
+      - { titulo: Raval Roig y Postiguet, texto: "Reparto gratis desde 25 €" }
+      - { titulo: San Blas, texto: "Reparto 2 €" }
+      - { titulo: Carolinas, texto: "Reparto 2 €" }
+
+  opiniones:
+    activa: true
+    antetitulo: Opiniones
+    titulo: Lo que dicen después de la última porción
+    testimonios:
+      - { texto: "La mejor masa que he probado en Alicante. Ligera, con el borde tostado, y llegó a casa todavía caliente.", autor: Lucía P., nota: Google }
+      - { texto: "Pedimos la de gamba roja por curiosidad y ya es fija cada viernes. La smash doble, también un diez.", autor: Andrés V., nota: Google }
+      - { texto: "Hicimos el cumpleaños de mi hijo con diez pizzas familiares. Todo puntual y muy bien de precio.", autor: Marta S. }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Antes de pedir
+    preguntas:
+      - { pregunta: "¿Hasta dónde repartís?", respuesta: "Por el centro de Alicante: Centro y Casco Antiguo, Benalúa, Ensanche Diputación, Mercado Central, Raval Roig, San Blas y Carolinas. Si tu calle no aparece, llámanos y te decimos." }
+      - { pregunta: "¿Cuánto tarda un pedido?", respuesta: "Para recoger, unos 15 minutos. A domicilio, entre 30 y 40 minutos; los viernes y sábados por la noche puede ser algo más." }
+      - { pregunta: "¿Tenéis pizzas sin gluten?", respuesta: "Sí. Tenemos masa sin gluten y la horneamos en una bandeja aparte, pero en la cocina se trabaja con harina de trigo: si eres celíaco, avísanos al pedir." }
+      - { pregunta: "¿Se puede pagar con tarjeta al repartidor?", respuesta: "Sí. Nuestros repartidores llevan datáfono, y también puedes pagar en efectivo o por Bizum al recoger." }
+      - { pregunta: "¿Hacéis pedidos grandes para fiestas o empresas?", respuesta: "Sí. Para más de ocho pizzas, mejor encárgalo con un día de antelación por teléfono o por el formulario de contacto." }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: ¿Un pedido grande o un cumpleaños?
+    texto: "Encargos para grupos, fiestas y oficinas. Escríbenos y te contestamos en el día."

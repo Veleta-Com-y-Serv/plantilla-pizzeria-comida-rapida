@@ -1,0 +1,58 @@
+---
+// «Pide ahora»: banda roja a todo el ancho con mantel de cuadros arriba, título gigante y las vías de pedido
+// como botones grandes blancos con sombra negra. `items` [{titulo, texto, icono, url}]: `url` es el destino
+// (tel:…, https://wa.me/…, o la página de una aplicación de reparto); sin `url`, la ficha no es enlace.
+// Sin `items`, salen solas las vías de site.yaml → contacto (teléfono y WhatsApp). `nota`: pedido mínimo, etc.
+import { seccion, site, tel, whatsapp, destino } from '../../data/site';
+import type { Item } from '../../data/site';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const deContacto: Item[] = [
+  c.telefono && { titulo: 'Teléfono', texto: c.telefono, icono: 'telefono', imagen: '', url: tel(c.telefono) },
+  c.whatsapp && { titulo: 'WhatsApp', texto: c.whatsapp, icono: 'whatsapp', imagen: '', url: whatsapp(c.whatsapp, `Hola, quiero hacer un pedido en ${site.nombre}`) },
+].filter(Boolean) as Item[];
+const vias = s && s.items.length > 0 ? s.items : deContacto;
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda-roja">
+      <div class="mantel" aria-hidden="true" />
+      <div class="contenedor seccion">
+        <div class="titular titular--doble">
+          <div>
+            {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+            {s.titulo && <h2 class="pedidos-titulo mt-4">{s.titulo}</h2>}
+          </div>
+          {s.texto && <p class="titular-texto">{s.texto}</p>}
+        </div>
+        {vias.length > 0 && (
+          <ul class="vias-pedido">
+            {vias.map((v) => {
+              const contenido = (
+                <>
+                  <span class="via-icono" aria-hidden="true"><Icono nombre={v.icono || 'bolsa'} tam={26} /></span>
+                  <span class="via-titulo">{v.titulo}</span>
+                  {v.texto && <span class="via-texto">{v.texto}</span>}
+                  {v.url && <span class="via-flecha" aria-hidden="true"><Icono nombre="flecha" tam={30} /></span>}
+                </>
+              );
+              return (
+                <li>
+                  {v.url ? (
+                    <a class="via-pedido" href={v.url} {...destino(v.url)}>{contenido}</a>
+                  ) : (
+                    <div class="via-pedido">{contenido}</div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        {s.nota && <p class="nota">{s.nota}</p>}
+      </div>
+    </section>
+  )
+}
