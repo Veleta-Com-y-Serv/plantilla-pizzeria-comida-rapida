@@ -1,0 +1,158 @@
+---
+// Página de una zona de reparto con `texto` (src/lib/paginas.ts, sección `zonas`): /zonas/<slug>/.
+// Mismo rótulo de pizzería que la portada: banda negra con migas, «Pizza a domicilio en <barrio>» en condensada
+// (`titulo_pagina` de la sección, con {zona}) y botones con sombra dura; el texto de la zona a la izquierda y la
+// foto a sangre a la derecha; «Pide ahora» en banda roja con mantel (las vías de la sección `pedidos`); hasta
+// dos opiniones en la banda amarilla; las otras zonas con página sobre el mantel de cuadros.
+import Base from '../../layouts/Base.astro';
+import Imagen from '../../components/ui/Imagen.astro';
+import Icono from '../../components/ui/Icono.astro';
+import { seccion, site, tel, whatsapp, destino } from '../../data/site';
+import { introZona, resumen, tituloZona, zonasConPagina } from '../../lib/paginas';
+import type { Zona } from '../../lib/paginas';
+import { jsonLdMigas, jsonLdZona, urlBase } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return zonasConPagina().map((z) => ({ params: { slug: z.slug }, props: { z } }));
+}
+
+interface Props { z: Zona }
+const { z } = Astro.props;
+const base = urlBase(Astro.site);
+const titulo = tituloZona(z);
+const intro = introZona(z);
+const nombreSeccion = String(z.seccion.antetitulo || z.seccion.titulo || 'Reparto').trim();
+const migas = [
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: nombreSeccion, ruta: `/#${z.idSeccion}` },
+  { nombre: z.nombre, ruta: z.url },
+];
+const c = site.contacto;
+const foto = z.imagen || String(seccion('hero')?.imagen || '');
+const pedir = seccion('pedidos') ? '/#pedidos' : site.boton_cabecera?.url || '/#contacto';
+const textoPedir = site.boton_cabecera?.texto || 'Pide ahora';
+const wa = whatsapp(c.whatsapp, `Hola, quiero hacer un pedido a domicilio en ${z.nombre}`);
+const pedidos = seccion('pedidos');
+const vias = pedidos ? pedidos.items.filter((v) => v?.titulo) : [];
+const opinionesSec = seccion('opiniones');
+const todas = opinionesSec ? opinionesSec.testimonios.filter((t) => t?.texto) : [];
+const nombra = (t: { texto: string; nota?: string }) => `${t.texto} ${t.nota ?? ''}`.toLowerCase().includes(z.nombre.toLowerCase());
+const opiniones = [...todas.filter(nombra), ...todas.filter((t) => !nombra(t))].slice(0, 2);
+const otras = zonasConPagina().filter((x) => x !== z);
+---
+
+<Base titulo={titulo} descripcion={resumen(z.texto[0] ?? intro)} imagen={foto} ld={[jsonLdMigas(base, migas), jsonLdZona(base, z)]}>
+  <section class="banda-oscura zona-cabeza">
+    <div class="contenedor pt-6 pb-14 md:pt-8 md:pb-20">
+      <nav aria-label="Migas de pan" class="migas">
+        <ol>
+          {migas.map((m, i) => (
+            <li>{i < migas.length - 1 ? <a href={m.ruta}>{m.nombre}</a> : <span aria-current="page">{m.nombre}</span>}</li>
+          ))}
+        </ol>
+      </nav>
+      <div class="pt-8 max-w-5xl">
+        <p class="antetitulo"><Icono nombre="moto" tam={18} /> {z.nombre}</p>
+        <h1 class="titulo-seccion zona-titulo">{titulo}</h1>
+        {intro && <p class="titular-texto mt-6">{intro}</p>}
+        <div class="mt-9 flex flex-wrap gap-4">
+          <a class="btn" href={pedir}>{textoPedir}</a>
+          {c.telefono && <a class="btn-sec inline-flex items-center gap-2" href={tel(c.telefono)}><Icono nombre="telefono" tam={18} /> {c.telefono}</a>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="partida">
+    <div class="mitad mitad--izq">
+      <p class="antetitulo">Reparto en {z.nombre}</p>
+      <div class="zona-parrafos mt-6">
+        {z.texto.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+    {foto ? (
+      <div class="mitad-foto"><Imagen src={foto} alt={titulo} ancho={1000} alto={750} /></div>
+    ) : (
+      <div class="mitad cuadros" aria-hidden="true"></div>
+    )}
+  </section>
+
+  {vias.length > 0 && (
+    <section class="banda-roja">
+      <div class="mantel" aria-hidden="true" />
+      <div class="contenedor seccion">
+        <p class="antetitulo">{pedidos?.antetitulo || 'Pide ahora'}</p>
+        <h2 class="titulo-seccion">Pide en {z.nombre}</h2>
+        <ul class="vias-pedido mt-10">
+          {vias.map((v) => {
+            const contenido = (
+              <>
+                <span class="via-icono" aria-hidden="true"><Icono nombre={v.icono || 'bolsa'} tam={26} /></span>
+                <span class="via-titulo">{v.titulo}</span>
+                {v.texto && <span class="via-texto">{v.texto}</span>}
+                {v.url && <span class="via-flecha" aria-hidden="true"><Icono nombre="flecha" tam={30} /></span>}
+              </>
+            );
+            return <li>{v.url ? <a class="via-pedido" href={v.url} {...destino(v.url)}>{contenido}</a> : <div class="via-pedido">{contenido}</div>}</li>;
+          })}
+        </ul>
+        {wa && !vias.some((v) => v.url?.includes('wa.me')) && (
+          <p class="mt-8"><a class="btn btn--claro" href={wa} target="_blank" rel="noopener">WhatsApp</a></p>
+        )}
+      </div>
+    </section>
+  )}
+
+  {opiniones.length > 0 && (
+    <section class="seccion opiniones">
+      <div class="contenedor">
+        <p class="antetitulo">{opinionesSec?.antetitulo}</p>
+        <h2 class="titulo-seccion mb-10">{opinionesSec?.titulo}</h2>
+        <ul class="opiniones-lista">
+          {opiniones.map((t) => (
+            <li class="opinion">
+              <figure>
+                <blockquote class="opinion-texto">{t.texto}</blockquote>
+                {(t.autor || t.nota) && (
+                  <figcaption class="opinion-autor">
+                    {t.autor && <span>{t.autor}</span>}
+                    {t.nota && <span class="opinion-nota">{t.nota}</span>}
+                  </figcaption>
+                )}
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {otras.length > 0 && (
+    <section class="cuadros">
+      <div class="contenedor seccion">
+        <h2 class="zona-otras-titulo">También repartimos en</h2>
+        <ul class="mt-6 flex flex-wrap gap-3">
+          {otras.map((o) => <li><a class="zona-otra" href={o.url}><Icono nombre="mapa" tam={16} /> {o.nombre}</a></li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .zona-cabeza { border-bottom: 6px solid var(--c-primario); }
+  .migas ol { display: flex; flex-wrap: wrap; gap: .25rem .6rem; font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+  .migas li { display: inline-flex; align-items: center; gap: .6rem; min-width: 0; }
+  .migas li + li::before { content: "★"; color: var(--c-acento); font-size: .8em; }
+  .migas a { text-decoration: none; min-height: 2.75rem; display: inline-flex; align-items: center; }
+  .migas a:hover { color: var(--c-acento); }
+  .migas [aria-current] { opacity: .7; }
+  .zona-titulo { font-size: clamp(2.8rem, 10vw, 7rem); overflow-wrap: anywhere; line-height: .92; }
+  .zona-titulo::after { content: ""; display: block; width: 5.5rem; height: .5rem; margin-top: 1.4rem; background: var(--c-primario); }
+  .zona-parrafos { font-size: 1.12rem; max-width: 40rem; }
+  .zona-parrafos p + p { margin-top: 1rem; }
+  .zona-otras-titulo { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+  .zona-otra { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.75rem; padding: .5rem 1rem; background: #fff; border: 3px solid var(--oscuro); box-shadow: 4px 4px 0 var(--oscuro); font-family: var(--fuente-titulos); font-size: 1.15rem; text-transform: uppercase; text-decoration: none; color: var(--oscuro); }
+  .zona-otra:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--c-primario); }
+  .zona-otra:focus-visible { outline: 3px solid var(--c-primario); outline-offset: 3px; }
+</style>

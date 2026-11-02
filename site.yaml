@@ -120,18 +120,27 @@ secciones:
     antetitulo: Horario y reparto
     titulo: Te la llevamos caliente
     texto: "Repartimos con nuestras motos en unos 30 o 40 minutos. Si tu calle no está en la lista, pregúntanos."
+    titulo_pagina: "Pizza a domicilio en {zona}"
+    texto_pagina: "Pizza napolitana y hamburguesas smash de {negocio}, recién salidas del horno y en tu puerta en {zona}."
     horario:
       - { dia: De lunes a jueves, horas: "13:00 – 16:00 y 20:00 – 24:00" }
       - { dia: Viernes y sábado, horas: "13:00 – 16:00 y 20:00 – 1:00" }
       - { dia: Domingo, horas: "20:00 – 24:00" }
     items:
-      - { titulo: Centro y Casco Antiguo, texto: "Reparto gratis desde 25 €" }
-      - { titulo: Benalúa, texto: "Reparto gratis desde 25 €" }
-      - { titulo: Ensanche Diputación, texto: "Reparto gratis desde 25 €" }
-      - { titulo: Mercado Central, texto: "Reparto gratis desde 25 €" }
-      - { titulo: Raval Roig y Postiguet, texto: "Reparto gratis desde 25 €" }
-      - { titulo: San Blas, texto: "Reparto 2 €" }
-      - { titulo: Carolinas, texto: "Reparto 2 €" }
+      - titulo: Centro y Casco Antiguo
+        texto: "Es el barrio más cercano a la calle San Fernando y el que más pedidos nos hace. Subimos hasta las callejuelas del Casco Antiguo y las cuestas de Santa Cruz, donde la moto llega mejor que cualquier coche, y bajamos hasta las calles del Centro, la Rambla y el entorno del Ayuntamiento. Aquí el reparto sale gratis desde 25 €. Si pides una pizza de masa madre y una smash doble, llega con el queso todavía fundido, en el tiempo habitual de 30 a 40 minutos. Dinos el portal y el piso, y si el timbre falla, déjanos un teléfono al hacer el pedido para que el repartidor te localice sin perder minutos."
+      - titulo: Benalúa
+        texto: "Benalúa es un barrio de bloques bajos, comercios de siempre y calles muy vividas, justo al otro lado de la estación. Llegamos sin problema por las avenidas principales y por las calles pequeñas de alrededor del mercado de Benalúa. Muchas familias del barrio nos piden los viernes por la noche una pizza grande para compartir y unas patatas para picar. El reparto es gratis desde 25 €, y el pedido tarda lo de siempre, entre 30 y 40 minutos. Si vives en una calle sin acceso para la moto, dinos dónde prefieres que te lo entreguemos y quedamos en la esquina más cercana."
+      - titulo: Ensanche Diputación
+        texto: "El Ensanche Diputación reúne oficinas, despachos y viviendas, así que aquí repartimos tanto a la hora de comer como por la noche. Los pedidos de mediodía suelen ser menús rápidos para el equipo, con varias pizzas y algo para compartir, y por la noche llegan las cenas en casa. Cubrimos todo el barrio, desde las calles más cercanas a la Diputación hasta las que dan al paseo. El reparto es gratis desde 25 €. Si pides para una oficina, indícanos la planta y a nombre de quién va el pedido, y si son muchas pizzas, avísanos con tiempo por teléfono para tenerlas listas a la vez."
+      - titulo: Mercado Central
+        texto: "La zona del Mercado Central es de las más animadas de Alicante, con puestos por la mañana y terrazas por la tarde. Repartimos por las calles de alrededor, desde la avenida de Alfonso el Sabio hasta las callejuelas que bajan hacia el Ayuntamiento. Es un barrio donde mucha gente vive encima de un bar o de una tienda, así que conviene decirnos bien el portal y si hay interfono. El reparto es gratis desde 25 €. Los sábados, cuando el barrio se llena de gente, el pedido puede tardar algo más del habitual de 30 a 40 minutos; si tienes prisa, llámanos y te decimos cómo vamos de cocina."
+      - titulo: Raval Roig y Postiguet
+        texto: "El Raval Roig y la zona del Postiguet son el lado mar de nuestro reparto: calles estrechas, casas bajas y la playa a un paso. Aquí pedimos con frecuencia desde apartamentos de vacaciones y desde terrazas con vistas, y ya sabemos que no siempre es fácil dar con el portal. Por eso, al hacer el pedido, añade una referencia clara y un teléfono de contacto. El reparto es gratis desde 25 €. Una pizza napolitana recién salida del horno de leña sabe mejor después de un día de playa, y la caja de cartón aguanta bien el paseo en moto hasta tu puerta, con el calor intacto."
+      - titulo: San Blas
+        texto: "San Blas es un barrio tranquilo y familiar, con calles amplias, parques y muchas comunidades de vecinos. Está algo más lejos de la calle San Fernando, por eso el reparto cuesta 2 €, pero llegamos igual de calientes: la moto sale directa del horno hasta tu puerta. Los fines de semana nos piden mucho pizzas familiares y combinados de hamburguesas para toda la casa. El tiempo de espera es el de siempre, entre 30 y 40 minutos, salvo viernes y sábados por la noche, que puede alargarse un poco. Si prefieres evitarte el reparto, puedes llamar y recogerla tú en unos 15 minutos."
+      - titulo: Carolinas
+        texto: "Carolinas es un barrio de calles en cuesta, edificios altos y mucha vida de vecindario, con colegios y comercios de toda la vida. Llegamos hasta el último portal por un reparto de 2 €, y los repartidores ya conocen las calles más empinadas, que son las que más se agradecen cuando llueve. Aquí nos suelen pedir pizzas para cumpleaños y cenas con los niños, y para esos casos conviene encargar con algo de antelación por teléfono. El tiempo habitual es de 30 a 40 minutos. Si tu calle no te sale al pedir, escríbenos por WhatsApp con la dirección y te confirmamos al momento si llegamos."
 
   opiniones:
     activa: true

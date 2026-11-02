@@ -68,3 +68,9 @@ franja: masa, ingredientes, caja de reparto y el local), sin texto legible, sin 
 - Volver al hero de foto con velo de `restaurante` o al 50/50 mostaza de `cafeteria-brunch`.
 - Tarjetas blancas con sombra suave y esquinas redondeadas en una columna estrecha.
 - Precios o cifras escritos en los componentes: todo sale de `site.yaml` y, sin dato, no se pinta.
+
+## Páginas propias (fichas y zonas)
+Solo zonas de reparto (la carta son platos, sin fichas): `/zonas/<barrio>/`. Misma piel que la portada: banda negra con filete rojo,
+migas con estrellas, título condensado en mayúsculas con raya roja y botones de sombra dura; texto del barrio | foto a sangre;
+banda roja con mantel y las vías de «Pide ahora»; banda amarilla con dos opiniones; chips blancos con sombra sobre el mantel
+de cuadros para las otras zonas. En la portada, cada placa de zona enlaza a su página con el texto recortado.

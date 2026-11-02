@@ -3,7 +3,10 @@
 // `horario` [{dia, horas}] en una tabla grande (sin lista, `contacto.horario`); a la derecha, sobre el mantel de
 // cuadros, las zonas (`items` [{titulo, texto}]: barrio y condiciones del reparto) en placas blancas, la
 // dirección y los botones «Cómo llegar» y teléfono. Sin zonas, la dirección va en una placa sola.
+// Las zonas con `texto` tienen página propia (/zonas/<zona>/): la placa entera es un enlace y el texto se
+// enseña recortado; `titulo` es el nombre del barrio.
 import { seccion, site, mapa, tel, destino } from '../../data/site';
+import { enlaceDe, resumen } from '../../lib/paginas';
 import Icono from '../ui/Icono.astro';
 interface Props { id: string }
 const s = seccion(Astro.props.id);
@@ -40,9 +43,10 @@ const derecha = !!s && (s.items.length > 0 || !!c.direccion || !!c.telefono);
         {s.items.length > 0 && (
           <ul class="zonas-lista">
             {s.items.map((z) => (
-              <li class="zona">
-                <p class="zona-nombre">{z.titulo}</p>
-                {z.texto && <p class="zona-texto">{z.texto}</p>}
+              <li class:list={['zona', { 'zona--enlace': !!enlaceDe(z) }]}>
+                <p class="zona-nombre">{enlaceDe(z) ? <a href={enlaceDe(z)} class="zona-link">{z.titulo}</a> : z.titulo}</p>
+                {z.texto && <p class="zona-texto">{resumen(z.texto, 110)}</p>}
+                {enlaceDe(z) && <span class="zona-ver" aria-hidden="true">Ver reparto <Icono nombre="flecha" tam={16} /></span>}
               </li>
             ))}
           </ul>

@@ -202,6 +202,12 @@
   .zona { padding: 1rem 1.25rem; background: #fff; border: 3px solid var(--oscuro); box-shadow: 5px 5px 0 var(--oscuro); }
   .zona-nombre { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; font-size: 1.5rem; line-height: 1; text-transform: uppercase; }
   .zona-texto { margin-top: .35rem; font-size: .9rem; font-weight: 600; color: var(--c-primario); }
+  .zona--enlace { position: relative; display: flex; flex-direction: column; transition: transform .15s ease, box-shadow .15s ease; }
+  .zona--enlace:hover, .zona--enlace:has(:focus-visible) { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--c-primario); }
+  .zona-link { text-decoration: none; }
+  .zona-link::after { content: ""; position: absolute; inset: 0; }
+  .zona-link:focus-visible { outline: 3px solid var(--c-primario); outline-offset: 3px; }
+  .zona-ver { display: inline-flex; align-items: center; gap: .35rem; margin-top: auto; padding-top: .7rem; font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; color: var(--c-primario); }
   .placa { padding: 1.5rem; background: #fff; border: 3px solid var(--oscuro); box-shadow: 6px 6px 0 var(--oscuro); }
   .direccion { display: flex; gap: .75rem; margin-top: 2rem; font-size: 1.1rem; font-weight: 700; }
 
