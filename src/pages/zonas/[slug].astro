@@ -11,6 +11,7 @@ import { seccion, site, tel, whatsapp, destino } from '../../data/site';
 import { introZona, resumen, tituloZona, zonasConPagina } from '../../lib/paginas';
 import type { Zona } from '../../lib/paginas';
 import { jsonLdMigas, jsonLdZona, urlBase } from '../../lib/seo';
+import { enlace, rutaDeSeccion } from '../../lib/multipagina';
 
 export function getStaticPaths() {
   return zonasConPagina().map((z) => ({ params: { slug: z.slug }, props: { z } }));
@@ -24,12 +25,12 @@ const intro = introZona(z);
 const nombreSeccion = String(z.seccion.antetitulo || z.seccion.titulo || 'Reparto').trim();
 const migas = [
   { nombre: 'Inicio', ruta: '/' },
-  { nombre: nombreSeccion, ruta: `/#${z.idSeccion}` },
+  { nombre: nombreSeccion, ruta: rutaDeSeccion(z.idSeccion) },
   { nombre: z.nombre, ruta: z.url },
 ];
 const c = site.contacto;
 const foto = z.imagen || String(seccion('hero')?.imagen || '');
-const pedir = seccion('pedidos') ? '/#pedidos' : site.boton_cabecera?.url || '/#contacto';
+const pedir = seccion('pedidos') ? enlace('/#pedidos') : site.boton_cabecera?.url || enlace('/#contacto');
 const textoPedir = site.boton_cabecera?.texto || 'Pide ahora';
 const wa = whatsapp(c.whatsapp, `Hola, quiero hacer un pedido a domicilio en ${z.nombre}`);
 const pedidos = seccion('pedidos');

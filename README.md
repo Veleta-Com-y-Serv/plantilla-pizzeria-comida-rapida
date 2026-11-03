@@ -8,6 +8,7 @@ Web a todo color para pizzerías, hamburgueserías y comida para llevar: carta c
 - Ejemplo: «La Pala», pizzería ficticia en la calle San Fernando de Alicante.
 - Campos propios: `hero.etiqueta`; `carta.platos` (nombre, texto, precio, categoria, destacado, imagen) y `carta.marca_destacado`; `pedidos.items` (titulo, texto, icono, url) y `pedidos.nota`; `ofertas.ofertas` (titulo, texto, precio, validez); `sobre.declaracion` y `sobre.galeria`; `zonas.horario` (dia, horas) y `zonas.items` (titulo, texto). Detalle en `CLAUDE.md`; brief de diseño en `DISEÑO.md`.
 - SEO de base incluido (`src/lib/seo.ts`): canónica, og:image, JSON-LD del negocio (con `areaServed` de las zonas) y de las preguntas frecuentes, `robots.txt`, `sitemap.xml` y `llms.txt`; `noindex` si `seo.indexable: false`.
+- Varias páginas (opcional, `paginas:` en la raíz de `site.yaml`): Inicio + una página por entrada (`{ ruta, titulo, secciones: "a; b" }`, hasta 6) con el menú hecho solo; reparto recomendado en `template.yaml → paginas`. Sin la clave, una sola página larga.
 - Contenido editable en `site.yaml`; metadatos y guion del asistente en `template.yaml`; fotos a generar en `fotos.json`.
 
 ```

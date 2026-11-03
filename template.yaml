@@ -21,7 +21,7 @@ secciones:
   - { id: contacto, nombre: Contacto }
 estilo: vivo
 plan_minimo: gratis
-version: 1.1.0
+version: 1.2.0
 base: astrowind
 demo_url: https://demo-plantilla-pizzeria-comida-rapida.noexpertise.com
 activa: true
@@ -30,6 +30,14 @@ orden: 230
 # Páginas propias (docs/plantillas.md § Fichas por elemento y páginas por zona). Espejo en src/data/fichas.ts.
 zonas:
   ruta: zonas
+
+# Varias páginas (docs/plantillas.md § Varias páginas): reparto recomendado al activar «Varias páginas».
+# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, ofertas).
+paginas:
+  - { ruta: carta, titulo: Carta, secciones: "carta" }
+  - { ruta: pedidos, titulo: Pedidos, secciones: "pedidos; zonas" }
+  - { ruta: la-pizzeria, titulo: La pizzería, secciones: "sobre; opiniones" }
+  - { ruta: contacto, titulo: Contacto, secciones: "preguntas; contacto" }
 
 # Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
 # tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
